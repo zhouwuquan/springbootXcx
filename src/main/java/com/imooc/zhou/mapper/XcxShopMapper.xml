@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imooc.zhou.dao.XcxShopMapper" >
+  <resultMap id="BaseResultMap" type="com.imooc.zhou.entity.XcxShop" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 新增 -->
+  <insert id="add" parameterType="com.imooc.zhou.entity.XcxShop" >
+	<selectKey keyProperty="id" resultType="long" order="BEFORE">
+	  	select SEQ_XCX_SHOP.Nextval from dual
+    </selectKey>
+    insert into XCX_SHOP (ID, NAME, LOCATION
+      )
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.imooc.zhou.entity.XcxShop" >
+    insert into XCX_SHOP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="findAll" resultMap="BaseResultMap">
+  		select * from xcx_shop x order by x.id desc
+  </select>
+  
+  <select id="findOneById" resultType="com.imooc.zhou.entity.XcxShop" parameterType="java.lang.Integer">
+  		select * from xcx_shop x where x.id=#{id}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+  		delete from xcx_shop x where x.id=#{id}
+  </delete>
+  
+  <update id="modify"  parameterType="com.imooc.zhou.entity.XcxShop">
+	 update xcx_shop
+	 <trim prefix="set" suffixOverrides=",">
+	  <if test="name!=null">name=#{name,jdbcType=VARCHAR},</if>
+	  <if test="location!=null">location=#{location,jdbcType=VARCHAR},</if>
+	 </trim>
+	 where id=#{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

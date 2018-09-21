@@ -1,0 +1,20 @@
+<!--pages/operation/operation.wxml-->
+<!--<text>pages/operation/operation.wxml</text>-->
+<view id="container">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="row">
+      <text>美食馆：</text>
+      <input type="text" name="name" placeholder="请输入美食馆名" 
+      value="{{name}}"/>
+    </view>
+    <view class="row">
+      <text>区域：</text>
+      <input type="text" name="location" placeholder="区域" 
+      value="{{location}}"/>
+    </view>
+    <view class="row">
+      <button type="primary" form-type="submit">提交</button>
+      <button type="primary" form-type="reset">清空</button>
+    </view>
+  </form>
+</view>
